@@ -1,4 +1,4 @@
-var cacheName = 'hello-pwa';
+var cacheName = 'cache_fechtanalyse';
 var filesToCache = [
   '/Fechtanalyse/',
   '/Fechtanalyse/fontawesome/css/all.css',
