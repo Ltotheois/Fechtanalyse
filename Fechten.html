@@ -911,7 +911,7 @@ change_quote();
 
 // Register service worker to control making site work offline
 if('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js')
+  navigator.serviceWorker.register('sw.js', {scope: "/Fechtanalyse/"})
 	.then(function(registration) {
 	  console.log('Service Worker Registered');
 	  //document.getElementById("update_sw_button").onclick = function(){
