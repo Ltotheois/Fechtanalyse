@@ -3,13 +3,15 @@
   "start_url": "Fechten.html",
   "display": "fullscreen",
   "background_color": "black",
+  "theme_color": "black",
   "description": "Allows to analyze fencing fights.",
   "short_name": "FA",
   "icons": [
     {
       "src": "title.png",
       "sizes": "756x756",
-      "type": "image/png"
+      "type": "image/png",
+	  "purpose": "maskable any"
     }
   ]
 }
