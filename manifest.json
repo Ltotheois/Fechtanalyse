@@ -1,6 +1,6 @@
 {
   "name": "Fechtanalyse",
-  "start_url": "Fechtanalyse/Fechten.html",
+  "start_url": "/Fechten.html",
   "display": "fullscreen",
   "background_color": "black",
   "description": "Allows to analyze fencing fights.",
@@ -8,7 +8,7 @@
   "icons": [
     {
       "src": "title.png",
-      "sizes": "192x192",
+      "sizes": "756x756",
       "type": "image/png"
     }
   ]
