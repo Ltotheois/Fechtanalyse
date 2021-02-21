@@ -50,7 +50,7 @@
 			<a class="overlay_action" href="https://ltotheois.github.io/LLWP/imprint.html">
 				<i class="fas fa-sync"></i>
 				<span>Imprint & Privacy Policy</span>
-			</a>-->
+			</a>
 		</div>
 		<div id="manual_div">
 			
@@ -130,17 +130,9 @@
 						<button class="tablinks" onclick="radiobuttons(this);" id="tab_touch_right">Touch Right</button>
 					</div>
 				</div>
-				<div class="tab" style="display:flex; justify-content:flex-start;padding-top:20px;">
-					<button class="tablinks" onclick="radiobuttons(this);" id="tab_left_0">0</button>
-					<button class="tablinks" onclick="radiobuttons(this);" id="tab_left_1">1</button>
-					<button class="tablinks" onclick="radiobuttons(this);" id="tab_left_2">2</button>
-					<button class="tablinks" onclick="radiobuttons(this);" id="tab_left_3">3</button>
+				<div class="tab" style="display:flex; justify-content:flex-start;padding-top:20px; width: fit-content;" id="option_container_left">
 				</div>
-				<div class="tab" style="display:flex; justify-content:flex-end;padding-top:20px;">
-					<button class="tablinks" onclick="radiobuttons(this);" id="tab_right_3">3</button>
-					<button class="tablinks" onclick="radiobuttons(this);" id="tab_right_2">2</button>
-					<button class="tablinks" onclick="radiobuttons(this);" id="tab_right_1">1</button>
-					<button class="tablinks" onclick="radiobuttons(this);" id="tab_right_0">0</button>
+				<div class="tab" style="display:flex; justify-content:flex-end;padding-top:20px; width: fit-content;" id="option_container_right">
 				</div>
 				
 				
@@ -196,13 +188,32 @@
 		</div>
 	
 	</div>
-	<div id="quote1" class="quote" style="opacity:0;"><span><!-- quote</span></div>
-	<div id="quote2" class="quote" style="position:absolute; bottom:0px; left:0px;"><span><!-- quote --></span></div>
+	<div id="quote1" class="quote" style="opacity:0;"><span></span></div>
+	<div id="quote2" class="quote" style="position:absolute; bottom:0px; left:0px;"><span></span></div>
 <script>
 var overlay_modal = document.getElementById('overlay_modal');
 var overlay = document.getElementById('overlay');
 var table_body = document.getElementById('table_body');
 var team_select = document.getElementById('general_team');
+
+var options = [0, 1, 2, 3, 4, 5];
+
+for (var option of options){
+	for (var side of ["left", "right"]){
+		var tmp = document.createElement("button");
+		tmp.className = "tablinks";
+		tmp.id = "tab_"+side+"_"+option;
+		tmp.innerHTML = option;
+		tmp.addEventListener("click", function(event){
+			radiobuttons(event.target);
+		});
+		if (side == "left"){
+			document.getElementById("option_container_"+side).append(tmp);		
+		} else {
+			document.getElementById("option_container_"+side).prepend(tmp);		
+		}
+	}
+};
 
 function toggle_overlay(){
 	var img = document.getElementById("title_icon");
@@ -339,7 +350,8 @@ function add_touch(){
 	data.push(checked_left);
 	
 	tmp = 0;
-	for (id of ["tab_left_0", "tab_left_1", "tab_left_2", "tab_left_3"]){
+	for (option of options){
+		id = "tab_left_"+option;
 		if (document.getElementById(id).classList.contains("active")){
 			tmp = id.replace("tab_left_", "");
 			break;
@@ -358,7 +370,8 @@ function add_touch(){
 	data.push(tmp);
 	
 	tmp = 0;
-	for (id of ["tab_right_0", "tab_right_1", "tab_right_2", "tab_right_3"]){
+	for (var option of options){
+		id = "tab_right_"+option;
 		if (document.getElementById(id).classList.contains("active")){
 			tmp = id.replace("tab_right_", "");
 			break;
@@ -374,9 +387,15 @@ function add_touch(){
 	data.push(tmp);
 	
 	// Cleaning the Interface
-	for (id of ["tab_right_0", "tab_right_1", "tab_right_2", "tab_right_3", "tab_left_0", "tab_left_1", "tab_left_2", "tab_left_3", "tab_touch_left", "tab_touch_right", "tab_touch_none"]){
+	for (id of ["tab_touch_left", "tab_touch_right", "tab_touch_none"]){
 		document.getElementById(id).classList.remove("active");
 	}
+	for (option of options){
+		id = "tab_right_"+option;
+		document.getElementById(id).classList.remove("active");
+	}
+	
+	
 	document.getElementById("touch_left_notes").value = "";
 	document.getElementById("touch_right_notes").value = "";
 	create_table_rows(table_body, [data]);
@@ -509,20 +528,19 @@ function analysis(){
 		results[i]["first_half"] = {};
 		results[i]["second_half"] = {};
 		var tmp = data.filter(function(val){return(val[0]==athlete_pairs[i][0] && val[10]==athlete_pairs[i][1])});
-		for (var tl=0; tl<4; tl++){
-			for (var tr=0; tr<4; tr++){
+		for (var tl=0; tl<options.length; tl++){
+			for (var tr=0; tr<options.length; tr++){
 				var tmp_2 = tmp.filter(function(val){return(val[2]==tl && val[8]==tr)});
 				var first_half = tmp_2.filter(function(val){return(val[4]<8 && val[6]<8)});
 				var second_half = tmp_2.filter(function(val){return(val[4]>=8 || val[6]>=8)});
 				
-				results[i]["first_half"][tl + ":" + tr] = tendence_score(first_half);
-				results[i]["second_half"][tl + ":" + tr] = tendence_score(second_half);
+				results[i]["first_half"][options[tl] + ":" + options[tr]] = tendence_score(first_half);
+				results[i]["second_half"][options[tl] + ":" + options[tr]] = tendence_score(second_half);
 			}
 		}
 	}
 	
 	document.getElementById("table_container_analysis").innerHTML = "";
-	
 	for (var i=0; i<athlete_pairs.length; i++){
 		create_analysis_table(results[i], athlete_pairs[i][0], athlete_pairs[i][1]);
 	}
@@ -547,9 +565,9 @@ function create_analysis_table(data, left_name, right_name){
 	var th = document.createElement("th");
 	th.innerHTML = "";
 	tr.appendChild(th);
-	for (var i=0; i<4; i++){
+	for (var option of options){
 		var th = document.createElement("th");
-		th.innerHTML = i;
+		th.innerHTML = option;
 		tr.appendChild(th);
 	}
 	var th = document.createElement("th");
@@ -558,62 +576,69 @@ function create_analysis_table(data, left_name, right_name){
 	head.appendChild(tr);
 	table.appendChild(head);
 	
-	for (var row=0; row<5; row++){
+	for (var row=0; row<options.length+1; row++){
 		var tr = document.createElement("tr");
-		for (var col=-1; col<5; col++){
+		for (var col=-1; col<options.length+1; col++){
 			var td = document.createElement("td");
-			if (row==4 && col == 4){
+			
+			// Sum : Sum field
+			if (row==options.length && col == options.length){
 				var fh = [0,0,0];
 				var sh = [0,0,0];
-				for (var k=0; k<4; k++){
-					for (var l=0; l<4; l++){
-						var tmp = data["first_half"][k+":"+l];
+				for (var k=0; k<options.length; k++){
+					for (var l=0; l<options.length; l++){
+						var tmp = data["first_half"][options[k]+":"+options[l]];
 						fh[0] = fh[0] + tmp[0];
 						fh[1] = fh[1] + tmp[1];
 						fh[2] = fh[2] + tmp[2];
-						var tmp = data["second_half"][k+":"+l];
+						var tmp = data["second_half"][options[k]+":"+options[l]];
 						sh[0] = sh[0] + tmp[0];
 						sh[1] = sh[1] + tmp[1];
 						sh[2] = sh[2] + tmp[2];
 					}
 				}
-			}else if (col==-1){
-				if (row == 4){
+			// First Row -> Header like
+			} else if (col==-1){
+				if (row == options.length){
 					td.innerHTML = "∑";
 				}else{
-					td.innerHTML = row;
+					td.innerHTML = options[row];
 				}
 				tr.appendChild(td);
 				continue;
-			}else if (row==4){
+			// Sum Row
+			}else if (row == options.length){
 				var fh = [0,0,0];
 				var sh = [0,0,0];
-				for (var k=0; k<4; k++){
-					var tmp = data["first_half"][k+":"+col];
+				for (var k=0; k<options.length; k++){
+					console.log(options[k]+":"+options[col])
+					var tmp = data["first_half"][options[k]+":"+options[col]];
 					fh[0] = fh[0] + tmp[0];
 					fh[1] = fh[1] + tmp[1];
 					fh[2] = fh[2] + tmp[2];
-					var tmp = data["second_half"][k+":"+col];
+					var tmp = data["second_half"][options[k]+":"+options[col]];
 					sh[0] = sh[0] + tmp[0];
 					sh[1] = sh[1] + tmp[1];
 					sh[2] = sh[2] + tmp[2];
 				}
-			}else if (col==4){
+			// Sum Col
+			}else if (col == options.length){
 				var fh = [0,0,0];
 				var sh = [0,0,0];
-				for (var k=0; k<4; k++){
-					var tmp = data["first_half"][row+":"+k];
+				for (var k=0; k<options.length; k++){
+					var tmp = data["first_half"][options[row]+":"+options[k]];
 					fh[0] = fh[0] + tmp[0];
 					fh[1] = fh[1] + tmp[1];
 					fh[2] = fh[2] + tmp[2];
-					var tmp = data["second_half"][row+":"+k];
+					var tmp = data["second_half"][options[row]+":"+options[k]];
 					sh[0] = sh[0] + tmp[0];
 					sh[1] = sh[1] + tmp[1];
 					sh[2] = sh[2] + tmp[2];
 				}
+			// Other Fields
 			}else {
-				var fh = data["first_half"][row+":"+col];
-				var sh = data["second_half"][row+":"+col];
+				var fh = data["first_half"][options[row]+":"+options[col]];
+				var sh = data["second_half"][options[row]+":"+options[col]];
 				var total = [fh[0]+sh[0], fh[1]+sh[1], fh[2]+sh[2]];
 				
 			}
@@ -872,7 +897,7 @@ function add_to_textarea(side, text){
 }
 
 
-var texts = ["Parade", "Riposte", "Prim", "Sekund", "Terz", "Quart", "Qunit", "KreisTerz", "ContraRiposte", "ReContraRiposte", false, "Vorhieb", "Bingo", "Eisenhieb", "ContraAttack", "Aussperren", "ContraAttack Aussperren", "Übernahme", "Remise", "Linie", false, "Flanke", "Kopf", "Bauch", "Hand", "Stoß", false, "Großen Schritt", "2 kleine Schritte", "SchrittStop", "Sprung", "Sprung Schritt", "Schritt Sprung", "Appell", "Hinteren Bein Startet"];
+var texts = ["Parade", "Riposte", "Prim", "Sekund", "Terz", "Quart", "Quint", "KreisTerz", "ContraRiposte", "ReContraRiposte", false, "Vorhieb", "Bingo", "Eisenhieb", "ContraAttack", "Aussperren", "ContraAttack Aussperren", "Übernahme", "Remise", "Linie", false, "Flanke", "Kopf", "Bauch", "Hand", "Stoß", false, "Großen Schritt", "2 kleine Schritte", "SchrittStop", "Sprung", "Sprung Schritt", "Schritt Sprung", "Appell", "Hinteres Bein Startet", false, "Fehler", "Nicht klar Treffen", "Video", "Video akzeptiert", "Video nicht akzeptiert", "Gelb", "Rot"];
 function show_abbrev_modal(side){
 	content = {};
 	content["header"] = "Add Text";
