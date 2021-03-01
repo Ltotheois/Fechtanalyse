@@ -14,7 +14,7 @@
 	</div>
 
 	<div class="header_div">
-		<img id="title_icon" src="favicon.svg" alt="TRACE - Tool for Remotely Accessing and Controlling Experiments" onclick="toggle_overlay();">
+		<img id="title_icon" src="favicon.svg" alt="Menu Button" onclick="toggle_overlay();">
 	</div>
 
 	<div id="overlay" class="overlay">
@@ -897,17 +897,18 @@ function add_to_textarea(side, text){
 }
 
 
-var texts = ["Parade", "Riposte", "Prim", "Sekund", "Terz", "Quart", "Quint", "KreisTerz", "ContraRiposte", "ReContraRiposte", false, "Vorhieb", "Bingo", "Eisenhieb", "ContraAttack", "Aussperren", "ContraAttack Aussperren", "Übernahme", "Remise", "Linie", false, "Flanke", "Kopf", "Bauch", "Hand", "Stoß", false, "Großen Schritt", "2 kleine Schritte", "SchrittStop", "Sprung", "Sprung Schritt", "Schritt Sprung", "Appell", "Hinteres Bein Startet", false, "Fehler", "Nicht klar Treffen", "Video", "Video akzeptiert", "Video nicht akzeptiert", "Gelb", "Rot"];
+var texts = {"P": "Parade", "R": "Riposte", "Pr": "Prim", "S": "Sekund", "T": "Terz", "K": "Quart", "Q": "Quint", "kT": "KreisTerz", "CR": "ContraRiposte", "rCR": "ReContraRiposte", "F1": false, "VH": "Vorhieb", "B": "Bingo", "EH": "Eisenhieb", "CA": "ContraAttack", "AS": "Aussperren", "CAAS": "ContraAttack Aussperren", "Ü": "Übernahme", "Re": "Remise", "L": "Linie", "F2": false, "Fl": "Flanke", "Ko": "Kopf", "Ba": "Bauch", "H": "Hand", "Sß": "Stoß", "F3": false, "!": "Fehler", "?": "Nicht klar Treffen", "V": "Video", "V+": "Video akzeptiert", "V-": "Video nicht akzeptiert", "GELB": "GELB", "ROT": "ROT", "F4": false, "GS": "Großen Schritt", "2klS": "2 kleine Schritte", "Sst": "SchrittStop", "Sp": "Sprung", "SpS": "Sprung Schritt", "SSp": "Schritt Sprung", "Ap": "Appell", "hB": "Hinteres Bein Startet", "hBSst": "hBSst", "hBGS": "hBGS", "SstAP": "SstAP", "SpAp": "SpAp"};
 function show_abbrev_modal(side){
 	content = {};
 	content["header"] = "Add Text";
 	content["body"]   = "<p>Click the buttons to add to the textarea: </p><div><hr>";
 	
-	for (var text of texts){
-		if (text == false){
+	for (var text in texts){
+		console.log(text);
+		if (texts[text] == false){
 			content["body"] += "<hr>";
 		} else {
-			content["body"] += "<button class='button' onclick='add_to_textarea(\""+side+"\", \""+text+"\")'>"+text+"</button>";
+			content["body"] += "<button class='button' onclick='add_to_textarea(\""+side+"\", \""+texts[text]+"\")'>"+text+"</button>";
 		}
 	}
 	
