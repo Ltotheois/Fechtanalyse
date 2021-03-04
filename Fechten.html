@@ -742,6 +742,9 @@ function load(ls=false){
 }
 
 function data_to_fields(json){
+	if (json == null){
+		return;
+	}
 	try {
 		var data = JSON.parse(json);
 		team_select.checked = data["team"];
