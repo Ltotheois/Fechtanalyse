@@ -8,6 +8,7 @@ var filesToCache = [
 	'/Fechtanalyse/favicon.svg',
 	'/Fechtanalyse/stylesheet.css',
 	'/Fechtanalyse/Fechten.html',
+	'/Fechtanalyse/FechtenSlim.html',
 	'/Fechtanalyse/manifest.json',
 	'/Fechtanalyse/fontawesome/webfonts/fa-regular-400.woff2',
 	'/Fechtanalyse/roboto/roboto-v20-latin-regular.woff2',
