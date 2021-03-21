@@ -406,6 +406,7 @@ input[type="checkbox"]{
 	display:				flex;
 	flex-wrap:				wrap;
 	width:					100%;
+	min-width:				100vw;
 	justify-content:		space-between;
 	background-color:		var(--header-bg-color);
 	border-radius:			0px 0px 4px 4px;
