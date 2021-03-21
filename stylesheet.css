@@ -273,7 +273,7 @@ input[type="checkbox"]{
 	justify-content:		center;
 	align-content:			flex-start;
 	width:					100vw;
-	min-width:				fit-content;
+	min-width:				min-content;
 }
 .tile{
 	display:				inline-block;
@@ -281,7 +281,7 @@ input[type="checkbox"]{
 	background-color:		var(--tile-bg-color);
 	color:					var(--tile-color);
 	min-height:				300px;
-	/* min-width:				300px; */
+	min-width:				min-content;
 	padding:				10px;
 	box-shadow:				var(--tile-shadow);
 	border-radius:			4px;
@@ -406,7 +406,6 @@ input[type="checkbox"]{
 	display:				flex;
 	flex-wrap:				wrap;
 	width:					100%;
-	min-width:				100vw;
 	justify-content:		space-between;
 	background-color:		var(--header-bg-color);
 	border-radius:			0px 0px 4px 4px;
@@ -610,4 +609,42 @@ span.total{
 	margin: 20px 0;
     display: flex;
     justify-content: center;
+}
+
+#analysis_tile {
+	min-width: max-content;
+}
+
+@media (max-width: 700px) {
+	#table_tile, #analysis_tile, #general, #Touch {
+		width: 100%;
+	}
+	#option_container_left, #option_container_right {
+		flex-wrap: wrap;
+	}
+	#table td:nth-child(1), #table th:nth-child(1),
+	#table td:nth-child(11), #table th:nth-child(11),
+	#table td:nth-child(4), #table th:nth-child(4),
+	#table td:nth-child(8), #table th:nth-child(8) {
+		display:none;
+	} 
+	#table_tile {
+		min-width: 400px;
+		padding-left: 0px;
+		padding-right: 0px;
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	
+	#analysis_tile {
+		min-width: 400px;
+	}
+
+}
+
+@media (min-width: 1000px) {
+	#table_tile {
+		min-width: max-content;
+		flex-basis: 100%;
+	}
 }
