@@ -273,6 +273,7 @@ input[type="checkbox"]{
 	justify-content:		center;
 	align-content:			flex-start;
 	width:					100vw;
+	min-width:				fit-content;
 }
 .tile{
 	display:				inline-block;
