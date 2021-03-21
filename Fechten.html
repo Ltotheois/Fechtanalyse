@@ -137,7 +137,7 @@
 				</div>
 				<div class="tab" style="display:flex; justify-content:flex-start;padding-top:20px; width: fit-content;" id="option_container_left">
 				</div>
-				<div class="tab" style="display:flex; justify-content:flex-end;padding-top:20px; width: fit-content;" id="option_container_right">
+				<div class="tab" style="display:flex; justify-content:flex-start;padding-top:20px; width: fit-content; flex-direction: row-reverse;" id="option_container_right">
 				</div>
 				
 				
@@ -212,11 +212,7 @@ for (var option of options){
 		tmp.addEventListener("click", function(event){
 			radiobuttons(event.target);
 		});
-		if (side == "left"){
-			document.getElementById("option_container_"+side).append(tmp);		
-		} else {
-			document.getElementById("option_container_"+side).prepend(tmp);		
-		}
+		document.getElementById("option_container_"+side).append(tmp);
 	}
 };
 
@@ -397,6 +393,8 @@ function add_touch(){
 	}
 	for (option of options){
 		id = "tab_right_"+option;
+		document.getElementById(id).classList.remove("active");
+		id = "tab_left_"+option;
 		document.getElementById(id).classList.remove("active");
 	}
 	
