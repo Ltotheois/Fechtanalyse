@@ -190,7 +190,7 @@ input[type="checkbox"]{
 .dgrid{
 	width:					100%;
 	display:				grid;
-	grid-template-columns:	auto auto;
+	grid-template-columns:	1fr 1fr;
 	grid-column-gap:		10px;
 	grid-row-gap:			5px;
 }
@@ -576,6 +576,15 @@ span.total{
 	color: orange;
 }
 
+.kw_table {
+	max-height: 210px;
+	overflow-y: auto;
+}
+
+.hide_halves .kw_table {
+	max-height: 90px;
+}
+
 /* Modals */
 .modal-container {
     position: fixed;
@@ -615,7 +624,52 @@ span.total{
 	min-width: max-content;
 }
 
+.focus #general, .focus #table_tile, .focus #analysis_tile, .focus #quote2, .focus #quote1 {
+	display: none;
+}
+
+.focus #title_icon {
+	width: 40px;
+	margin: 0px;
+}
+
+.focus #Touch {
+	padding-top: 50px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+}
+
+.focus #Touch .dgrid {
+	max-width: 700px;
+	margin: auto;
+}
+
+.focus #Touch .button {
+	min-height: 50px;
+}
+
+.focus #Touch .tablinks {
+	min-height: 70px;
+    min-width: 50px;
+}
+
+.focus .modal .button {
+	min-height: 30px;
+}
+
+.focus #Touch h2 {
+	display: none;
+}
+
 @media (max-width: 700px) {
+	.button {
+		min-height: 40px;
+	}
+	
 	#table_tile, #analysis_tile, #general, #Touch {
 		width: 100%;
 	}
