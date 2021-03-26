@@ -129,13 +129,16 @@
 				<label for="general_tableau">Tableau: </label>
 				<input id="general_tableau">
 				
+				<label for="general_notes">Notes: </label>
+				<div class="input textarea" contenteditable id="general_notes"></div>
+				
 			</div>
 		</div>
 		
 		<div class="tile" id="Touch">
 			<h2>Add Touch</h2>
 			<div class="dgrid">
-				<div style="min-width:300px; grid-column: 1/3; display:flex; justify-content:center;">
+				<div style="min-width:340px; grid-column: 1/3; display:flex; justify-content:center;">
 					<div class="tab">
 						<button class="tablinks" onclick="radiobuttons(this);" id="tab_touch_left">Touch Left</button>
 						<button class="tablinks" onclick="radiobuttons(this);" id="tab_touch_none">No Touch</button>
@@ -803,6 +806,7 @@
 			var e = document.getElementById(id);
 			data[id] = e.value;
 		}
+		data["general_notes"] = document.getElementById("general_notes").innerHTML;
 		data["select_left"] = document.getElementById("general_left_name").innerHTML;
 		data["select_right"] = document.getElementById("general_right_name").innerHTML;
 		
@@ -860,6 +864,8 @@
 				var e = document.getElementById(id);
 				e.value = data[id];
 			}
+
+			document.getElementById("general_notes").innerHTML = data["general_notes"] || "";
 			var select_left = document.getElementById("general_left_name");
 			select_left.innerHTML = data["select_left"];
 			var select_right = document.getElementById("general_right_name");

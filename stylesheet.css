@@ -137,7 +137,7 @@ body.modal_active{
 div{
 	box-sizing:			border-box;
 }
-input, textarea, select{
+input, textarea, select, .input{
 	background-color: 	var(--input-bg-color);
 	color:				var(--input-color);
 	height:				22px;
@@ -153,6 +153,12 @@ input, textarea, select{
 input:hover, input:active, input:focus, textarea:active, textarea:hover, textarea:focus{
 	outline:			none;
 	background-color:	var(--input-bg-hover);
+}
+
+.input.textarea {
+	height: auto;
+	resize: both;
+	overflow: auto;
 }
 
 textarea{
