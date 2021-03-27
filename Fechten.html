@@ -519,7 +519,7 @@
 			"left":		{},
 			"right":	{},
 		};
-		data = {
+		var data = {
 			"first":	first_half,
 			"second":	second_half,
 		}
@@ -561,7 +561,7 @@
 	}
 
 	function analysis(){
-		data = table_body_to_array(table_body);
+		var data = table_body_to_array(table_body);
 		data.sort(function(a,b) {
 			if (a[4]-b[4] != 0){
 				return a[4]-b[4]
