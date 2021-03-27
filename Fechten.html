@@ -587,14 +587,14 @@
 			results[i]["first_half"] = {};
 			results[i]["second_half"] = {};
 			var tmp = data.filter(function(val){return(val[0]==athlete_pairs[i][0] && val[10]==athlete_pairs[i][1])});
-			for (var tl=0; tl<options.length; tl++){
-				for (var tr=0; tr<options.length; tr++){
+			for (var tl of options){
+				for (var tr of options){
 					var tmp_2 = tmp.filter(function(val){return(val[2]==tl && val[8]==tr)});
 					var first_half = tmp_2.filter(function(val){return(val[4]<8 && val[6]<8)});
 					var second_half = tmp_2.filter(function(val){return(val[4]>=8 || val[6]>=8)});
 					
-					results[i]["first_half"][options[tl] + ":" + options[tr]] = tendence_score(first_half);
-					results[i]["second_half"][options[tl] + ":" + options[tr]] = tendence_score(second_half);
+					results[i]["first_half"][tl + ":" + tr] = tendence_score(first_half);
+					results[i]["second_half"][tl + ":" + tr] = tendence_score(second_half);
 					
 				}
 			}

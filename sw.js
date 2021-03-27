@@ -1,4 +1,4 @@
-// version 1.05
+// version 1.06
 // change version to reinstall service worker and update Files
 
 var cacheName = 'cache_fechtanalyse';

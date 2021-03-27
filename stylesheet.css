@@ -697,7 +697,19 @@ span.total{
 	}
 	
 	#analysis_tile {
-		min-width: 400px;
+		min-width: max(400px, 100%);
+		padding-left: 0px;
+		padding-right: 0px;
+		margin-left: 0px;
+		margin-right: 0px;
+	}
+	
+	.first_half, .second_half, .zero {
+		font-size: 11px;
+	}
+	
+	.hide_halves .first_half, .hide_halves .second_half, .hide_halves .zero {
+		font-size: 1rem;
 	}
 
 }
