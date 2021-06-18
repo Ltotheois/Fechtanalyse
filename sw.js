@@ -8,7 +8,6 @@ var filesToCache = [
 	'/Fechtanalyse/favicon.svg',
 	'/Fechtanalyse/stylesheet.css',
 	'/Fechtanalyse/Fechten.html',
-	'/Fechtanalyse/FechtenSlim.html',
 	'/Fechtanalyse/manifest.json',
 	'/Fechtanalyse/fontawesome/webfonts/fa-regular-400.woff2',
 	'/Fechtanalyse/roboto/roboto-v20-latin-regular.woff2',
@@ -18,13 +17,13 @@ var filesToCache = [
 
 /* Start the service worker and cache all of the app's content */
 self.addEventListener('install', function(e) {
+  self.skipWaiting();
   caches.delete(cacheName);
   e.waitUntil(
     caches.open(cacheName).then(function(cache) {
       return cache.addAll(filesToCache);
     })
   );
-  self.skipWaiting();
 });
 
 /* Serve cached content when offline */

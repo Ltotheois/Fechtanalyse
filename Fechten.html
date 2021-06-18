@@ -1064,9 +1064,15 @@
 
 	// Register service worker to control making site work offline
 	if('serviceWorker' in navigator) {
-		navigator.serviceWorker.register('sw.js', {scope: "/Fechtanalyse/"})
-			.then(function(registration) {
+		window.addEventListener('load', function(){
+			navigator.serviceWorker.register('sw.js', {scope: "/Fechtanalyse/"}).then(function(registration) {
 				console.log('Service Worker Registered');
+				registration.onupdatefound = function() {
+					if (navigator.serviceWorker.controller) {
+						shoot_alert("Updated App, please reload page.");
+					}
+				}
+			});
 		});
 	}
 
